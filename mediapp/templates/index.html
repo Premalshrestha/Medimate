@@ -35,7 +35,7 @@
                         <i class="fas fa-heartbeat text-primary text-2xl mr-2"></i>
                         <span class="text-2xl font-bold text-gray-900">Medimate</span>
                     </div>
-                </div><q></q>
+                </div>
                 <div class="flex items-center space-x-4">
                     <button id="nav-dashboard" class="nav-btn text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-colors">
                         <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
@@ -49,6 +49,31 @@
                     <button id="nav-consultations" class="nav-btn text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-colors">
                         <i class="fas fa-video mr-1"></i> Doctors
                     </button>
+                    <div class="relative">
+                        <button id="profile-btn" class="flex items-center space-x-2 text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-colors">
+                            <img id="user-avatar" src="" alt="Profile" class="w-8 h-8 rounded-full object-cover">
+                            <span id="user-name">User</span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div id="profile-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50">
+                            <div class="py-2">
+                                <button id="view-profile" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                    <i class="fas fa-user mr-2"></i>View Profile
+                                </button>
+                                <button id="edit-profile" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                    <i class="fas fa-edit mr-2"></i>Edit Profile
+                                </button>
+                                <button id="settings" class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                    <i class="fas fa-cog mr-2"></i>Settings
+                                </button>
+                                
+                                <hr class="my-2">
+                                <button class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <button id="emergency-btn" class="bg-medical text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">
                         <i class="fas fa-phone mr-1"></i> Emergency
                     </button>
@@ -120,6 +145,35 @@
 
                 <!-- Health Overview -->
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- User Profile Card -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="flex items-center mb-4">
+                            <img id="dashboard-avatar" src="" alt="Profile" class="w-16 h-16 rounded-full object-cover mr-4">
+                            <div>
+                                <h2 class="text-xl font-semibold text-gray-900" id="dashboard-name">User Name</h2>
+                                <p class="text-gray-600" id="dashboard-email">user@email.com</p>
+                                <p class="text-sm text-gray-500" id="dashboard-age">Age: --</p>
+
+
+
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-4">
+                            <div class="text-center p-3 bg-blue-50 rounded-lg">
+                                <div class="text-2xl font-bold text-primary" id="total-consultations">12</div>
+                                <div class="text-xs text-gray-600">Consultations</div>
+                            </div>
+                            <div class="text-center p-3 bg-green-50 rounded-lg">
+                                <div class="text-2xl font-bold text-secondary" id="family-members-count">3</div>
+                                <div class="text-xs text-gray-600">Family Members</div>
+                            </div>
+                        </div>
+                        
+                        <button id="view-full-profile" class="w-full bg-primary text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                            <i class="fas fa-user mr-2"></i>View Full Profile
+                        </button>
+                    </div>
                     <div class="lg:col-span-2">
                         <div class="bg-white rounded-lg shadow-md p-6">
                             <h2 class="text-xl font-semibold text-gray-900 mb-4">Recent Health Activity</h2>
@@ -203,7 +257,7 @@
                     </div>
 
                     <!-- Image Upload -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
                         <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
                             <i class="fas fa-camera text-secondary mr-2"></i>
                             Medical Images
@@ -221,7 +275,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <!-- Analysis Button -->
                 <div class="text-center mt-8">
@@ -326,29 +379,7 @@
         </section>
     </main>
 
-    <!-- Modals -->
-     <!-- Modal -->
-<div class="modal fade" id="addFamilyMemberModal" tabindex="-1" role="dialog" aria-labelledby="addFamilyMemberModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Family Member</h5>
-      </div>
-      <div class="modal-body">
-        <input type="text" id="memberName" placeholder="Name" class="form-control mb-2">
-        <input type="text" id="memberRelationship" placeholder="Relationship" class="form-control mb-2">
-        <input type="number" id="memberAge" placeholder="Age" class="form-control mb-2">
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="addMemberBtn">Add Member</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Where the new family members appear -->
-<div id="familyCardsContainer"></div>
-
+    <!-- Modal -->
     <!-- Emergency Modal -->
     <div id="emergency-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
@@ -363,72 +394,73 @@
                     </button>
 
                     <button onclick="toggleMap()" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-600 transition-colors">
-    <i class="fas fa-map-marker-alt mr-2"></i>
-    Find Nearest Hospital
-</button>
+                        <i class="fas fa-map-marker-alt mr-2"></i>
+                        Find Nearest Hospital
+                    </button>
 
-<button id="close-emergency" class="w-full bg-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-400 transition-colors">
-                        Cancel
-</button>
+                    <button id="close-emergency" class="w-full bg-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-400 transition-colors">Cancel
+                    </button>
+              
 
-<!-- Modal -->
 
-<!-- Map + List Container (Modal) -->
-<div id="mapModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
-  <div class="bg-white rounded-lg w-11/12 max-w-6xl p-4 relative flex flex-col md:flex-row gap-4">
-    
-    <!-- Close Button -->
-    <button onclick="toggleMap()" class="absolute top-2 right-2 text-gray-600 hover:text-black text-2xl">&times;</button>
+                    <!-- Map + List Container (Modal) -->
+                    <div id="mapModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+                        <div class="bg-white rounded-lg w-11/12 max-w-6xl p-4 relative flex flex-col md:flex-row gap-4">
+                            
+                            <!-- Close Button -->
+                            <button onclick="toggleMap()" class="absolute top-2 right-2 text-gray-600 hover:text-black text-2xl">&times;</button>
 
-    <!-- Left: Embedded Google Map -->
-    <div class="w-full md:w-2/3">
-      <iframe
-        id="map-frame"
-        src="https://www.google.com/maps?q=nearest%20hospital&output=embed"
-        width="100%" height="450" style="border:0; border-radius: 0.5rem;"
-        allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
+                            <!-- Left: Embedded Google Map -->
+                            <div class="w-full md:w-2/3">
+                            <iframe
+                                id="map-frame"
+                                src="https://www.google.com/maps?q=nearest%20hospital&output=embed"
+                                width="100%" height="450" style="border:0; border-radius: 0.5rem;"
+                                allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                            </div>
+
+                        <!-- Right: Hospital List -->
+                        <div class="w-full md:w-1/3 overflow-y-auto max-h-[450px]">
+                            <h2 class="text-xl font-bold mb-2 text-primary">Top 10 Nearby Hospitals</h2>
+                            <ul class="space-y-3">
+                                <li onclick="showHospital('Patan Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Patan Hospital
+                                </li>
+                                <li onclick="showHospital('B&B Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> B&B Hospital
+                                </li>
+                                <li onclick="showHospital('Grande International Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Grande International Hospital
+                                </li>
+                                <li onclick="showHospital('Teaching Hospital Maharajgunj')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Teaching Hospital Maharajgunj
+                                </li>
+                                <li onclick="showHospital('Norvic International Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Norvic International Hospital
+                                </li>
+                                <li onclick="showHospital('Alka Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Alka Hospital
+                                </li>
+                                <li onclick="showHospital('KIST Medical College')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> KIST Medical College
+                                </li>
+                                <li onclick="showHospital('Bir Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Bir Hospital
+                                </li>
+                                <li onclick="showHospital('Om Hospital & Research Center')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Om Hospital & Research Center
+                                </li>
+                                <li onclick="showHospital('Shree Harsha Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+                                <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Shree Harsha Hospital
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+        </div>
     </div>
-
-    <!-- Right: Hospital List -->
-    <div class="w-full md:w-1/3 overflow-y-auto max-h-[450px]">
-      <h2 class="text-xl font-bold mb-2 text-primary">Top 10 Nearby Hospitals</h2>
-      <ul class="space-y-3">
-        <li onclick="showHospital('Patan Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Patan Hospital
-        </li>
-        <li onclick="showHospital('B&B Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> B&B Hospital
-        </li>
-        <li onclick="showHospital('Grande International Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Grande International Hospital
-        </li>
-        <li onclick="showHospital('Teaching Hospital Maharajgunj')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Teaching Hospital Maharajgunj
-        </li>
-        <li onclick="showHospital('Norvic International Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Norvic International Hospital
-        </li>
-        <li onclick="showHospital('Alka Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Alka Hospital
-        </li>
-        <li onclick="showHospital('KIST Medical College')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> KIST Medical College
-        </li>
-        <li onclick="showHospital('Bir Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Bir Hospital
-        </li>
-        <li onclick="showHospital('Om Hospital & Research Center')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Om Hospital & Research Center
-        </li>
-        <li onclick="showHospital('Shree Harsha Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
-          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Shree Harsha Hospital
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
 
     <!-- Add Family Member Modal -->
     <div id="family-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
@@ -466,10 +498,157 @@
         </div>
     </div>
 
+    <!-- Profile Modal -->
+    <div id="profile-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-screen overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">User Profile</h2>
+                    <button id="close-profile-modal" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Profile Picture and Basic Info -->
+                    <div class="lg:col-span-1">
+                        <div class="bg-gray-50 rounded-lg p-6 text-center">
+                            <div class="relative inline-block mb-4">
+                                <img id="profile-avatar" src="" alt="Profile" class="w-32 h-32 rounded-full object-cover mx-auto">
+                                <button class="absolute bottom-0 right-0 bg-primary text-white rounded-full p-2 hover:bg-blue-600 transition-colors">
+                                    <i class="fas fa-camera text-sm"></i>
+                                </button>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2" id="profile-full-name">User Name</h3>
+                            <p class="text-gray-600 mb-4" id="profile-email-display">user@email.com</p>
+                            <div class="space-y-2 text-sm">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Member Since:</span>
+                                    <span class="font-medium" id="member-since">Dec 2024</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Last Login:</span>
+                                    <span class="font-medium" id="last-login">Today</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Details -->
+                    <div class="lg:col-span-2">
+                        <div class="space-y-6">
+                            <!-- Personal Information -->
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h4 class="text-lg font-semibold text-gray-900 mb-4">Personal Information</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                        <input type="text" id="edit-first-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                        <input type="text" id="edit-last-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                        <input type="email" id="edit-email" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                        <input type="tel" id="edit-phone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                                        <input type="date" id="edit-dob" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Blood Type</label>
+                                        <select id="edit-blood-type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" disabled>
+                                            <option value="">Select Blood Type</option>
+                                            <option value="A+">A+</option>
+                                            <option value="A-">A-</option>
+                                            <option value="B+">B+</option>
+                                            <option value="B-">B-</option>
+                                            <option value="AB+">AB+</option>
+                                            <option value="AB-">AB-</option>
+                                            <option value="O+">O+</option>
+                                            <option value="O-">O-</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Medical Information -->
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h4 class="text-lg font-semibold text-gray-900 mb-4">Medical Information</h4>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Allergies</label>
+                                        <div id="allergies-list" class="flex flex-wrap gap-2 mb-2">
+                                            <!-- Allergies will be populated here -->
+                                        </div>
+                                        <input type="text" id="new-allergy" placeholder="Add new allergy..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Current Medications</label>
+                                        <div id="medications-list" class="space-y-2 mb-2">
+                                            <!-- Medications will be populated here -->
+                                        </div>
+                                        <input type="text" id="new-medication" placeholder="Add new medication..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Medical Conditions</label>
+                                        <div id="conditions-list" class="flex flex-wrap gap-2 mb-2">
+                                            <!-- Conditions will be populated here -->
+                                        </div>
+                                        <input type="text" id="new-condition" placeholder="Add new condition..." class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Emergency Contact -->
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <h4 class="text-lg font-semibold text-gray-900 mb-4">Emergency Contact</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                        <input type="text" id="emergency-name" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Relationship</label>
+                                        <input type="text" id="emergency-relationship" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                        <input type="tel" id="emergency-phone" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex space-x-4">
+                                <button id="edit-profile-btn" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                                    <i class="fas fa-edit mr-2"></i>Edit Profile
+                                </button>
+                                <button id="save-profile-btn" class="bg-secondary text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors hidden">
+                                    <i class="fas fa-save mr-2"></i>Save Changes
+                                </button>
+                                <button id="cancel-edit-btn" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors hidden">
+                                    <i class="fas fa-times mr-2"></i>Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="{% static 'counter.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/profile.js' %}"></script>
+    <script src="{% static 'js/family.js' %}"></script>
     <script src="{% static 'js/ai-diagnosis.js' %}"></script>
     <script src="{% static 'js/speech-recognition.js' %}"></script>
     <script src="{% static 'js/consultations.js' %}"></script>
