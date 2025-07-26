@@ -105,26 +105,29 @@ class MedimateApp {
         });
     }
 
-   populateDashboard() {
-    const healthActivity = document.getElementById('health-activity');
+    populateDashboard() {
+        const healthActivity = document.getElementById('health-activity');
 
-    fetch('/api/activities/')
-        .then(response => response.json())
-        .then(activities => {
-            healthActivity.innerHTML = activities.map(activity => `
-                <div class="flex items-center p-4 bg-gray-50 rounded-lg">
-                    <div class="flex-shrink-0">
-                        <i class="fas ${activity.icon} ${activity.color} text-xl"></i>
+        fetch('/mediapp/api/activities/')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                const activities = data.activities;
+                healthActivity.innerHTML = activities.map(activity => `
+                    <div class="flex items-center p-4 bg-gray-50 rounded-lg">
+                        <div class="flex-shrink-0">
+                            <i class="fas ${activity.icon} ${activity.color} text-xl"></i>
+                        </div>
+                        <div class="ml-4 flex-1">
+                            <h3 class="text-sm font-semibold text-gray-900">${activity.title}</h3>
+                            <p class="text-sm text-gray-600">${activity.description}</p>
+                            <p class="text-xs text-gray-500 mt-1">${activity.time}</p>
+                        </div>
                     </div>
-                    <div class="ml-4 flex-1">
-                        <h3 class="text-sm font-semibold text-gray-900">${activity.title}</h3>
-                        <p class="text-sm text-gray-600">${activity.description}</p>
-                        <p class="text-xs text-gray-500 mt-1">${activity.time}</p>
-                    </div>
-                </div>
-            `).join('');
-        });
-}
+                `).join('');
+            })
+            .catch(error => console.error("Error fetching activities:", error));
+    }
 }
 
 // Add CSS for sections
