@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor List</title>
+    <style>
+        .doctor-card {
+            border: 1px solid #ccc;
+            padding: 12px;
+            margin: 12px;
+            width: 200px;
+            display: inline-block;
+            vertical-align: top;
+            text-align: center;
+        }
+        .doctor-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <h2>Available Doctors</h2>
+    <div id="doctors-list"></div>
+
+    <script src="{% static 'js/doctors.js' %}"></script>
+</body>
+</html>

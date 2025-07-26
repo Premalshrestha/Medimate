@@ -1,0 +1,492 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medimate - AI-Powered Health Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2563EB',
+                        secondary: '#10B981',
+                        accent: '#F59E0B',
+                        medical: '#EF4444',
+                        success: '#22C55E',
+                        warning: '#F59E0B',
+                        error: '#EF4444'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <i class="fas fa-heartbeat text-primary text-2xl mr-2"></i>
+                        <span class="text-2xl font-bold text-gray-900">Medimate</span>
+                    </div>
+                </div><q></q>
+                <div class="flex items-center space-x-4">
+                    <button id="nav-dashboard" class="nav-btn text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-colors">
+                        <i class="fas fa-tachometer-alt mr-1"></i> Dashboard
+                    </button>
+                    <button id="nav-diagnosis" class="nav-btn text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-colors">
+                        <i class="fas fa-stethoscope mr-1"></i> AI Diagnosis
+                    </button>
+                    <button id="nav-family" class="nav-btn text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-colors">
+                        <i class="fas fa-users mr-1"></i> Family
+                    </button>
+                    <button id="nav-consultations" class="nav-btn text-gray-700 hover:text-primary px-3 py-2 rounded-md transition-colors">
+                        <i class="fas fa-video mr-1"></i> Doctors
+                    </button>
+                    <button id="emergency-btn" class="bg-medical text-white px-4 py-2 rounded-md hover:bg-red-600 transition-colors">
+                        <i class="fas fa-phone mr-1"></i> Emergency
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-16 min-h-screen">
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="section active">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900">Health Dashboard</h1>
+                    <p class="text-gray-600 mt-2">Your comprehensive health overview</p>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer" id="quick-diagnosis">
+                        <div class="flex items-center">
+                            <div class="bg-primary bg-opacity-10 rounded-lg p-3 mr-4">
+                                <i class="fas fa-brain text-primary text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">AI Diagnosis</h3>
+                                <p class="text-gray-600 text-sm">Analyze symptoms</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer" id="quick-family">
+                        <div class="flex items-center">
+                            <div class="bg-secondary bg-opacity-10 rounded-lg p-3 mr-4">
+                                <i class="fas fa-users text-secondary text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Family Health</h3>
+                                <p class="text-gray-600 text-sm">Monitor loved ones</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer" id="quick-consultation">
+                        <div class="flex items-center">
+                            <div class="bg-accent bg-opacity-10 rounded-lg p-3 mr-4">
+                                <i class="fas fa-user-md text-accent text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Consult Doctor</h3>
+                                <p class="text-gray-600 text-sm">Book appointment</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow cursor-pointer" id="quick-emergency">
+                        <div class="flex items-center">
+                            <div class="bg-medical bg-opacity-10 rounded-lg p-3 mr-4">
+                                <i class="fas fa-ambulance text-medical text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-900">Emergency</h3>
+                                <p class="text-gray-600 text-sm">Get immediate help</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health Overview -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-4">Recent Health Activity</h2>
+                            <div id="health-activity" class="space-y-4">
+                                <!-- Activity items will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-4">Upcoming</h2>
+                            <div id="upcoming-items" class="space-y-3">
+                                <!-- Upcoming items will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-4">Health Score</h2>
+                            <div class="text-center">
+                                <div class="relative w-24 h-24 mx-auto mb-4">
+                                    <svg class="w-24 h-24 transform -rotate-90">
+                                        <circle
+                                            cx="48"
+                                            cy="48"
+                                            r="40"
+                                            stroke="#E5E7EB"
+                                            stroke-width="8"
+                                            fill="transparent"
+                                        />
+                                        <circle
+                                            cx="48"
+                                            cy="48"
+                                            r="40"
+                                            stroke="#10B981"
+                                            stroke-width="8"
+                                            fill="transparent"
+                                            stroke-dasharray="251.2"
+                                            stroke-dashoffset="62.8"
+                                            class="transition-all duration-1000"
+                                        />
+                                    </svg>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <span class="text-2xl font-bold text-secondary">85</span>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600">Excellent health status</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Diagnosis Section -->
+        <section id="diagnosis-section" class="section">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="mb-8 text-center">
+                    <h1 class="text-3xl font-bold text-gray-900">AI-Powered Diagnosis</h1>
+                    <p class="text-gray-600 mt-2">Describe your symptoms through speech or upload medical images</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Speech Input -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-microphone text-primary mr-2"></i>
+                            Voice Symptoms
+                        </h2>
+                        <div class="text-center">
+                            <button id="speech-btn" class="bg-primary text-white px-8 py-4 rounded-full text-lg hover:bg-blue-600 transition-colors mb-4">
+                                <i class="fas fa-microphone mr-2"></i>
+                                <span id="speech-btn-text">Start Recording</span>
+                            </button>
+                            <p class="text-gray-600 mb-4">Click to describe your symptoms</p>
+                            <div id="speech-result" class="bg-gray-50 rounded-lg p-4 min-h-24 text-left hidden">
+                                <h3 class="font-semibold text-gray-900 mb-2">Transcription:</h3>
+                                <p id="speech-text" class="text-gray-700"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Image Upload -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                            <i class="fas fa-camera text-secondary mr-2"></i>
+                            Medical Images
+                        </h2>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                            <input type="file" id="image-upload" accept="image/*" class="hidden">
+                            <label for="image-upload" class="cursor-pointer">
+                                <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                                <p class="text-gray-600">Click to upload medical images</p>
+                                <p class="text-sm text-gray-500 mt-2">Supports JPG, PNG, WebP</p>
+                            </label>
+                            <div id="image-preview" class="mt-4 hidden">
+                                <img id="preview-img" class="max-w-full h-48 object-cover rounded-lg mx-auto">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Analysis Button -->
+                <div class="text-center mt-8">
+                    <button id="analyze-btn" class="bg-accent text-white px-8 py-3 rounded-lg text-lg hover:bg-yellow-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <i class="fas fa-brain mr-2"></i>
+                        Analyze Symptoms
+                    </button>
+                </div>
+
+                <!-- Analysis Results -->
+                <div id="analysis-results" class="mt-8 hidden">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Analysis Results</h2>
+                        <div id="diagnosis-content">
+                            <!-- Results will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Family Section -->
+        <section id="family-section" class="section">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="flex justify-between items-center mb-8">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Family Health</h1>
+                        <p class="text-gray-600 mt-2">Monitor and manage your family's health</p>
+                    </div>
+                    <button id="add-family-member" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        <i class="fas fa-plus mr-2"></i>
+                        Add Member
+                    </button>
+                </div>
+
+                <!-- Family Members -->
+                <div id="family-members" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Family member cards will be populated by JavaScript -->
+                </div>
+
+                <!-- Family Health Insights -->
+                <div class="mt-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h2 class="text-xl font-semibold text-gray-900 mb-4">Family Health Insights</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-secondary">4</div>
+                                <p class="text-gray-600">Active Members</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-accent">2</div>
+                                <p class="text-gray-600">Medications Tracked</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-3xl font-bold text-primary">12</div>
+                                <p class="text-gray-600">Health Records</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Consultations Section -->
+        <section id="consultations-section" class="section">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900">Doctor Consultations</h1>
+                    <p class="text-gray-600 mt-2">Connect with healthcare professionals</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Available Doctors -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-4">Available Doctors</h2>
+                            <div id="doctors-list" class="space-y-4">
+                                <!-- Doctors will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Appointments -->
+                    <div>
+                        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-4">Upcoming Appointments</h2>
+                            <div id="appointments-list" class="space-y-3">
+                                <!-- Appointments will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-4">Quick Consult</h2>
+                            <button class="w-full bg-accent text-white py-2 rounded-lg hover:bg-yellow-500 transition-colors">
+                                <i class="fas fa-comments mr-2"></i>
+                                Start Chat
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modals -->
+     <!-- Modal -->
+<div class="modal fade" id="addFamilyMemberModal" tabindex="-1" role="dialog" aria-labelledby="addFamilyMemberModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Family Member</h5>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="memberName" placeholder="Name" class="form-control mb-2">
+        <input type="text" id="memberRelationship" placeholder="Relationship" class="form-control mb-2">
+        <input type="number" id="memberAge" placeholder="Age" class="form-control mb-2">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="addMemberBtn">Add Member</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Where the new family members appear -->
+<div id="familyCardsContainer"></div>
+
+    <!-- Emergency Modal -->
+    <div id="emergency-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <div class="text-center">
+                <i class="fas fa-exclamation-triangle text-medical text-4xl mb-4"></i>
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">Emergency Services</h2>
+                <p class="text-gray-600 mb-6">Are you experiencing a medical emergency?</p>
+                <div class="space-y-3">
+                    <button class="w-full bg-medical text-white py-3 rounded-lg hover:bg-red-600 transition-colors">
+                        <i class="fas fa-phone mr-2"></i>
+                        Call 911
+                    </button>
+
+                    <button onclick="toggleMap()" class="w-full bg-primary text-white py-3 rounded-lg hover:bg-blue-600 transition-colors">
+    <i class="fas fa-map-marker-alt mr-2"></i>
+    Find Nearest Hospital
+</button>
+
+<button id="close-emergency" class="w-full bg-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-400 transition-colors">
+                        Cancel
+</button>
+
+<!-- Modal -->
+
+<!-- Map + List Container (Modal) -->
+<div id="mapModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+  <div class="bg-white rounded-lg w-11/12 max-w-6xl p-4 relative flex flex-col md:flex-row gap-4">
+    
+    <!-- Close Button -->
+    <button onclick="toggleMap()" class="absolute top-2 right-2 text-gray-600 hover:text-black text-2xl">&times;</button>
+
+    <!-- Left: Embedded Google Map -->
+    <div class="w-full md:w-2/3">
+      <iframe
+        id="map-frame"
+        src="https://www.google.com/maps?q=nearest%20hospital&output=embed"
+        width="100%" height="450" style="border:0; border-radius: 0.5rem;"
+        allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+
+    <!-- Right: Hospital List -->
+    <div class="w-full md:w-1/3 overflow-y-auto max-h-[450px]">
+      <h2 class="text-xl font-bold mb-2 text-primary">Top 10 Nearby Hospitals</h2>
+      <ul class="space-y-3">
+        <li onclick="showHospital('Patan Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Patan Hospital
+        </li>
+        <li onclick="showHospital('B&B Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> B&B Hospital
+        </li>
+        <li onclick="showHospital('Grande International Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Grande International Hospital
+        </li>
+        <li onclick="showHospital('Teaching Hospital Maharajgunj')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Teaching Hospital Maharajgunj
+        </li>
+        <li onclick="showHospital('Norvic International Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Norvic International Hospital
+        </li>
+        <li onclick="showHospital('Alka Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Alka Hospital
+        </li>
+        <li onclick="showHospital('KIST Medical College')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> KIST Medical College
+        </li>
+        <li onclick="showHospital('Bir Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Bir Hospital
+        </li>
+        <li onclick="showHospital('Om Hospital & Research Center')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Om Hospital & Research Center
+        </li>
+        <li onclick="showHospital('Shree Harsha Hospital')" class="flex items-center cursor-pointer text-gray-700 hover:text-blue-600 transition">
+          <i class="fas fa-map-marker-alt mr-3 text-blue-500"></i> Shree Harsha Hospital
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+    <!-- Add Family Member Modal -->
+    <div id="family-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Add Family Member</h2>
+            <form id="family-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Relationship</label>
+                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                        <option value="">Select relationship</option>
+                        <option value="spouse">Spouse</option>
+                        <option value="child">Child</option>
+                        <option value="parent">Parent</option>
+                        <option value="sibling">Sibling</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Age</label>
+                    <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" required>
+                </div>
+                <div class="flex space-x-3 pt-4">
+                    <button type="submit" class="flex-1 bg-primary text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        Add Member
+                    </button>
+                    <button type="button" id="close-family-modal" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400 transition-colors">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- Scripts -->
+    <script src="{% static 'counter.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/ai-diagnosis.js' %}"></script>
+    <script src="{% static 'js/speech-recognition.js' %}"></script>
+    <script src="{% static 'js/consultations.js' %}"></script>
+    <script src="{% static 'js/consultationsManager.js' %}"></script>
+    <script>
+  function toggleMap() {
+    const modal = document.getElementById('mapModal');
+    modal.classList.toggle('hidden');
+    modal.classList.toggle('flex');
+  }
+
+  function showHospital(name) {
+    const frame = document.getElementById('map-frame');
+    const location = encodeURIComponent(name + " Kathmandu Nepal");
+    frame.src = `https://www.google.com/maps?q=${location}&output=embed`;
+  }
+</script>
+
+</body>
+</html>
